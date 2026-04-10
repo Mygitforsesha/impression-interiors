@@ -1,1 +1,33 @@
+<<<<<<< HEAD
 ﻿[]
+=======
+[
+  {
+    "id": 1775821842206,
+    "name": "Kota Seshagiri Rao",
+    "phone": "7661023667",
+    "message": "City: Visakhapatnam\nBHK: 3BHK\nRequirements: Wardrobe",
+    "budget": "20L+",
+    "propertyType": "Apartment",
+    "createdAt": "2026-04-10T11:50:42.206Z"
+  },
+  {
+    "id": 1775821782824,
+    "name": "Kota sesha",
+    "phone": "76610236",
+    "message": "First mail test formspree",
+    "budget": "",
+    "propertyType": "General",
+    "createdAt": "2026-04-10T11:49:42.824Z"
+  },
+  {
+    "id": 1775753056019,
+    "name": "Ram",
+    "phone": "1123456789",
+    "message": "Need Interior for 2 BHK.",
+    "budget": "",
+    "propertyType": "General",
+    "createdAt": "2026-04-09T16:44:16.019Z"
+  }
+]
+>>>>>>> fa15bd6e50625266066628c0f2e015571ef871e9
