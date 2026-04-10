@@ -20,12 +20,20 @@ function headers() {
 
 function decodeBase64Json(base64) {
   if (!base64) return [];
-  const json = atob(base64.replace(/\n/g, ""));
+  const binary = atob(base64.replace(/\n/g, ""));
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  const json = new TextDecoder().decode(bytes);
   return JSON.parse(json);
 }
 
 function encodeBase64Json(data) {
-  return btoa(JSON.stringify(data, null, 2));
+  const json = JSON.stringify(data, null, 2);
+  const bytes = new TextEncoder().encode(json);
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 1) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
 }
 
 function normalizeLead(item) {
