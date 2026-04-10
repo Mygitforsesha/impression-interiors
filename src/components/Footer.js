@@ -59,7 +59,7 @@ export default function Footer() {
             <a href={PHONE_URL} className="flex items-center gap-2 hover:text-slate-900"><Phone className="h-4 w-4" /> Call us</a>
             <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-900"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
             <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-900"><InstagramGlyph className="h-4 w-4" /> Instagram</a>
-            <a href="mailto:hello@impressioninteriors.com" className="flex items-center gap-2 hover:text-slate-900"><Mail className="h-4 w-4" /> hello@impressioninteriors.com</a>
+            <a href="mailto:hello@impressioninteriors.com" className="flex items-center gap-2 hover:text-slate-900"><Mail className="h-4 w-4" /> Impressionbyhm@gmail.com</a>
             <div className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Hyderabad, India</div>
           </div>
         </div>
