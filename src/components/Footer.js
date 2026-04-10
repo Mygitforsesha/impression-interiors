@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 
-const WHATSAPP_URL = process.env.REACT_APP_WHATSAPP_URL || "https://wa.me/919999999999";
-const PHONE_URL = process.env.REACT_APP_PHONE_URL || "tel:+919999999999";
-const INSTAGRAM_URL = process.env.REACT_APP_INSTAGRAM_URL || "https://instagram.com/";
+const WHATSAPP_URL = process.env.REACT_APP_WHATSAPP_URL || "https://wa.me/918885991157";
+const PHONE_URL = process.env.REACT_APP_PHONE_URL || "tel:+918885991157";
+const INSTAGRAM_URL = process.env.REACT_APP_INSTAGRAM_URL || "https://www.instagram.com/impression_byhm/";
 
 function InstagramGlyph({ className = "" }) {
   return (
