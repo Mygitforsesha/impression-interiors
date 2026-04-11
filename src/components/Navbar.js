@@ -42,15 +42,18 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [scrolled, setScrolled] = useState(false);
-  const { isAdmin, logout } = useAuth();
+
+  const { isAdmin, logout } = useAuth(); // ✅ NOW USED
   const location = useLocation();
 
+  // Scroll effect
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock scroll when mobile menu open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
   }, [open]);
@@ -84,7 +87,8 @@ export default function Navbar() {
     [],
   );
 
-  React.useEffect(() => {
+  // Close menu on route change
+  useEffect(() => {
     setOpen(false);
     setOpenDropdown(null);
   }, [location.pathname]);
@@ -96,7 +100,10 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 md:px-6">
-        <Link to="/" className="flex items-center gap-3 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.97]">
+        <Link
+          to="/"
+          className="flex items-center gap-3 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.97]"
+        >
           <img
             src="/logo.png"
             alt="Impression Interiors logo"
@@ -113,6 +120,7 @@ export default function Navbar() {
           </div>
         </Link>
 
+        {/* Desktop */}
         <nav className="hidden items-center gap-2 md:flex">
           {items.map((it) => (
             <NavItem key={it.to} to={it.to}>
@@ -120,7 +128,7 @@ export default function Navbar() {
             </NavItem>
           ))}
 
-          {/* Dropdowns unchanged logic, smoother animation */}
+          {/* Estimation */}
           <div
             className="relative"
             onMouseEnter={() => setOpenDropdown("estimation")}
@@ -136,7 +144,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.18, ease: "easeOut" }}
+                  transition={{ duration: 0.18 }}
                   className="absolute right-0 top-11 z-50 w-60 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl"
                 >
                   {estimationLinks.map((l) => (
@@ -154,7 +162,7 @@ export default function Navbar() {
             </AnimatePresence>
           </div>
 
-          {/* More dropdown same improvement */}
+          {/* More */}
           <div
             className="relative"
             onMouseEnter={() => setOpenDropdown("more")}
@@ -170,7 +178,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.18, ease: "easeOut" }}
+                  transition={{ duration: 0.18 }}
                   className="absolute right-0 top-11 z-50 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl"
                 >
                   {moreLinks.map((l) => (
@@ -187,8 +195,24 @@ export default function Navbar() {
               )}
             </AnimatePresence>
           </div>
+
+          {/* ✅ ADMIN SECTION (fixes error) */}
+          {isAdmin ? (
+            <>
+              <NavItem to="/admin/dashboard">Dashboard</NavItem>
+              <button
+                onClick={logout}
+                className="ml-2 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-all duration-200 active:scale-[0.97]"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <NavItem to="/admin-login">Admin</NavItem>
+          )}
         </nav>
 
+        {/* Mobile toggle */}
         <button
           className="md:hidden rounded-xl border border-slate-200 p-2 transition-all duration-200 hover:bg-slate-50 active:scale-[0.95]"
           onClick={() => setOpen(!open)}
@@ -196,6 +220,57 @@ export default function Navbar() {
           {open ? <X /> : <Menu />}
         </button>
       </div>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div
+              className="fixed inset-0 bg-black/40 z-40"
+              onClick={() => setOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+
+            <motion.div
+              className="fixed right-0 top-0 z-50 h-full w-72 bg-white shadow-xl p-4"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.22 }}
+            >
+              {items.map((it) => (
+                <NavItem key={it.to} to={it.to} onClick={() => setOpen(false)}>
+                  {it.label}
+                </NavItem>
+              ))}
+
+              {/* ✅ ADMIN MOBILE */}
+              {isAdmin ? (
+                <>
+                  <NavItem to="/admin/dashboard" onClick={() => setOpen(false)}>
+                    Dashboard
+                  </NavItem>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setOpen(false);
+                    }}
+                    className="mt-2 w-full rounded-lg border px-3 py-2"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <NavItem to="/admin-login" onClick={() => setOpen(false)}>
+                  Admin Login
+                </NavItem>
+              )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
