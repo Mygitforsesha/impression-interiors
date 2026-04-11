@@ -20,7 +20,9 @@ export default function Footer() {
   return (
     <footer className="mt-16 border-t border-slate-200 bg-slate-50/60">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-4 md:px-6">
-        <div>
+
+        {/* Brand */}
+        <div className="transition-all duration-300 hover:scale-[1.02]">
           <div className="flex items-center gap-3">
             <img src="/logo.png" alt="Impression Interiors logo" className="h-10 w-10 rounded-xl border border-slate-200 object-cover" />
             <div>
@@ -33,33 +35,36 @@ export default function Footer() {
           </p>
         </div>
 
+        {/* Links */}
         <div>
           <div className="text-sm font-semibold text-slate-900">Quick links</div>
           <div className="mt-3 space-y-2 text-sm text-slate-600">
-            <Link className="block hover:text-slate-900" to="/">Home</Link>
-            <Link className="block hover:text-slate-900" to="/projects">Projects</Link>
-            <Link className="block hover:text-slate-900" to="/about">About Us</Link>
-            <Link className="block hover:text-slate-900" to="/faqs">FAQs</Link>
+            <Link className="block transition-all duration-200 hover:text-slate-900 hover:translate-x-1" to="/">Home</Link>
+            <Link className="block transition-all duration-200 hover:text-slate-900 hover:translate-x-1" to="/projects">Projects</Link>
+            <Link className="block transition-all duration-200 hover:text-slate-900 hover:translate-x-1" to="/about">About Us</Link>
+            <Link className="block transition-all duration-200 hover:text-slate-900 hover:translate-x-1" to="/faqs">FAQs</Link>
           </div>
         </div>
 
+        {/* Estimation */}
         <div>
           <div className="text-sm font-semibold text-slate-900">Estimations</div>
           <div className="mt-3 space-y-2 text-sm text-slate-600">
-            <Link className="block hover:text-slate-900" to="/estimation/interior">Home Interior Estimation</Link>
-            <Link className="block hover:text-slate-900" to="/estimation/kitchen">Kitchen Estimation</Link>
-            <Link className="block hover:text-slate-900" to="/estimation/wardrobe">Wardrobe Estimation</Link>
-            <Link className="block hover:text-slate-900" to="/free-quote">Free Quote</Link>
+            <Link className="block transition-all duration-200 hover:text-slate-900 hover:translate-x-1" to="/estimation/interior">Home Interior Estimation</Link>
+            <Link className="block transition-all duration-200 hover:text-slate-900 hover:translate-x-1" to="/estimation/kitchen">Kitchen Estimation</Link>
+            <Link className="block transition-all duration-200 hover:text-slate-900 hover:translate-x-1" to="/estimation/wardrobe">Wardrobe Estimation</Link>
+            <Link className="block transition-all duration-200 hover:text-slate-900 hover:translate-x-1" to="/free-quote">Free Quote</Link>
           </div>
         </div>
 
+        {/* Contact */}
         <div>
           <div className="text-sm font-semibold text-slate-900">Connect</div>
           <div className="mt-3 space-y-2 text-sm text-slate-600">
-            <a href={PHONE_URL} className="flex items-center gap-2 hover:text-slate-900"><Phone className="h-4 w-4" /> Call us</a>
-            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-900"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
-            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-900"><InstagramGlyph className="h-4 w-4" /> Instagram</a>
-            <a href="mailto:hello@impressioninteriors.com" className="flex items-center gap-2 hover:text-slate-900"><Mail className="h-4 w-4" /> Impressionbyhm@gmail.com</a>
+            <a href={PHONE_URL} className="flex items-center gap-2 transition-all duration-200 hover:text-slate-900 hover:translate-x-1 active:scale-[0.97]"><Phone className="h-4 w-4" /> Call us</a>
+            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="flex items-center gap-2 transition-all duration-200 hover:text-slate-900 hover:translate-x-1 active:scale-[0.97]"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="flex items-center gap-2 transition-all duration-200 hover:text-slate-900 hover:translate-x-1 active:scale-[0.97]"><InstagramGlyph className="h-4 w-4" /> Instagram</a>
+            <a href="mailto:hello@impressioninteriors.com" className="flex items-center gap-2 transition-all duration-200 hover:text-slate-900 hover:translate-x-1 active:scale-[0.97]"><Mail className="h-4 w-4" /> Impressionbyhm@gmail.com</a>
             <div className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Hyderabad, India</div>
           </div>
         </div>
@@ -74,4 +79,3 @@ export default function Footer() {
     </footer>
   );
 }
-

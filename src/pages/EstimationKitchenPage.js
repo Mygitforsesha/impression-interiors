@@ -21,7 +21,7 @@ export default function EstimationKitchenPage() {
           </div>
         </div>
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
-          <img src="/image2-unsplash.jpg" alt="Kitchen interior estimation" className="block h-full w-full object-cover" loading="lazy" />
+          <img src="/image7-unsplash.jpg" alt="Kitchen interior estimation" className="block h-full w-full object-cover" loading="lazy" />
         </div>
       </section>
 

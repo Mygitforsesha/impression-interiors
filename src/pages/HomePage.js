@@ -41,7 +41,7 @@ export default function HomePage() {
           </p>
           <div className="mt-4 grid max-w-md grid-cols-2 gap-3 text-sm text-slate-700">
             <div className="rounded-xl border border-slate-200 bg-white p-3">
-              <div className="text-lg font-semibold text-slate-900">300+</div>
+              <div className="text-lg font-semibold text-slate-900">70+</div>
               <div className="text-xs text-slate-500">Design concepts delivered</div>
             </div>
             <div className="rounded-xl border border-slate-200 bg-white p-3">

@@ -21,7 +21,7 @@ export default function EstimationWardrobePage() {
           </div>
         </div>
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
-          <img src="/image3-unsplash.jpg" alt="Wardrobe estimation" className="block h-full w-full object-cover" loading="lazy" />
+          <img src="/image8-unsplash.jpg" alt="Wardrobe estimation" className="block h-full w-full object-cover" loading="lazy" />
         </div>
       </section>
 

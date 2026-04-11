@@ -24,8 +24,12 @@ export default function AdminLoginPage() {
   return (
     <div className="mx-auto flex max-w-6xl justify-center px-4 py-10 md:px-6 md:py-16">
       <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
-        <h1 className="text-xl font-semibold text-slate-900 md:text-2xl">Admin login</h1>
-        <p className="mt-2 text-sm text-slate-600">Login to upload and manage projects.</p>
+        <h1 className="text-xl font-semibold text-slate-900 md:text-2xl">
+          Admin login
+        </h1>
+        <p className="mt-2 text-sm text-slate-600">
+          Login to upload and manage projects.
+        </p>
 
         {error ? (
           <div className="mt-4 rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-800">
@@ -38,7 +42,9 @@ export default function AdminLoginPage() {
             Username
             <input
               value={form.username}
-              onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, username: e.target.value }))
+              }
               className="mt-1 w-full min-h-[44px] rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-slate-400 focus:outline-none"
               required
               autoComplete="username"
@@ -49,7 +55,9 @@ export default function AdminLoginPage() {
             <input
               type="password"
               value={form.password}
-              onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, password: e.target.value }))
+              }
               className="mt-1 w-full min-h-[44px] rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-slate-400 focus:outline-none"
               required
               autoComplete="current-password"
@@ -62,12 +70,7 @@ export default function AdminLoginPage() {
             Login
           </button>
         </form>
-
-        <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-xs text-slate-600">
-          Note: this is a client-only admin login (localStorage). For production, use a real auth backend.
-        </div>
       </div>
     </div>
   );
 }
-
