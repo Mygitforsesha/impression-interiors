@@ -70,17 +70,37 @@ export default function Navbar() {
 
   const estimationLinks = useMemo(
     () => [
-      { to: "/estimation/interior", label: "Home Interior", icon: <Calculator className="h-4 w-4" /> },
-      { to: "/estimation/kitchen", label: "Kitchen", icon: <ChefHat className="h-4 w-4" /> },
-      { to: "/estimation/wardrobe", label: "Wardrobe", icon: <DoorOpen className="h-4 w-4" /> },
+      {
+        to: "/estimation/interior",
+        label: "Home Interior",
+        icon: <Calculator className="h-4 w-4" />,
+      },
+      {
+        to: "/estimation/kitchen",
+        label: "Kitchen",
+        icon: <ChefHat className="h-4 w-4" />,
+      },
+      {
+        to: "/estimation/wardrobe",
+        label: "Wardrobe",
+        icon: <DoorOpen className="h-4 w-4" />,
+      },
     ],
     [],
   );
 
   const moreLinks = useMemo(
     () => [
-      { to: "/about", label: "About Us", icon: <BookOpenText className="h-4 w-4" /> },
-      { to: "/projects", label: "Gallery", icon: <Grid3X3 className="h-4 w-4" /> },
+      {
+        to: "/about",
+        label: "About Us",
+        icon: <BookOpenText className="h-4 w-4" />,
+      },
+      {
+        to: "/projects",
+        label: "Gallery",
+        icon: <Grid3X3 className="h-4 w-4" />,
+      },
       { to: "/faqs", label: "FAQs", icon: <HelpCircle className="h-4 w-4" /> },
       { to: "/blog", label: "Blog", icon: <Shapes className="h-4 w-4" /> },
     ],
@@ -115,7 +135,7 @@ export default function Navbar() {
               Impression Interiors
             </div>
             <div className="text-xs text-slate-500">
-              Interior Design Portfolio
+              Creating spaces that inspire and impress
             </div>
           </div>
         </Link>
