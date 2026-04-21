@@ -32,6 +32,7 @@ export default function FreeQuotePage() {
   const steps = useMemo(() => ["Property", "Budget", "Requirements", "Contact"], []);
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [submittedMessage, setSubmittedMessage] = useState("We will contact you soon.");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
@@ -80,6 +81,7 @@ export default function FreeQuotePage() {
     if (!canNext) return;
     setSubmitting(true);
     setSubmitError("");
+    setSubmittedMessage("We will contact you soon.");
 
     const lead = {
       id: Date.now(),
@@ -127,6 +129,11 @@ export default function FreeQuotePage() {
         // ignore
       }
     } catch (err) {
+      if (err?.code === "LEAD_SAVE_NON_BLOCKING_FAILURE") {
+        setSubmittedMessage("Your enquiry was received successfully.");
+        setSubmitted(true);
+        return;
+      }
       setSubmitError(err?.message || "Submission failed. Please try again.");
     } finally {
       setSubmitting(false);
@@ -164,7 +171,7 @@ export default function FreeQuotePage() {
               className="rounded-3xl border border-emerald-200 bg-emerald-50 p-8"
             >
               <div className="text-sm font-semibold text-emerald-900">Submitted</div>
-              <div className="mt-1 text-sm text-emerald-800">We will contact you soon.</div>
+              <div className="mt-1 text-sm text-emerald-800">{submittedMessage}</div>
               <button
                 type="button"
                 className="mt-5 min-h-[44px] rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"

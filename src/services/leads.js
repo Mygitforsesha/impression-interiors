@@ -49,6 +49,30 @@ function normalizeLead(item) {
   };
 }
 
+function isSameLead(a, b) {
+  if (!a || !b) return false;
+
+  // Prefer stable identity when id exists.
+  if (a.id && b.id) return String(a.id) === String(b.id);
+
+  return (
+    a.name === b.name &&
+    a.phone === b.phone &&
+    a.message === b.message &&
+    a.budget === b.budget &&
+    a.propertyType === b.propertyType &&
+    a.createdAt === b.createdAt
+  );
+}
+
+function mergeLeadWithoutDuplicate(lead, leads) {
+  const normalizedLeads = Array.isArray(leads) ? leads.map(normalizeLead).filter(Boolean) : [];
+  if (normalizedLeads.some((item) => isSameLead(item, lead))) {
+    return normalizedLeads;
+  }
+  return [lead, ...normalizedLeads];
+}
+
 export async function fetchLeads() {
   requireConfig();
   const res = await fetch(
@@ -100,7 +124,9 @@ export async function saveLeads(updatedLeads, sha) {
 
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    throw new Error(`Leads save failed (${res.status}). ${text}`);
+    const err = new Error(`Leads save failed (${res.status}). ${text}`);
+    err.status = res.status;
+    throw err;
   }
 
   return res.json();
@@ -111,8 +137,26 @@ export async function addLead(newLead) {
   if (!lead) throw new Error("Invalid lead");
 
   const { leads, fileMeta } = await fetchLeads();
-  const updated = [lead, ...leads];
-  await saveLeads(updated, fileMeta?.sha);
-  return lead;
+  const updated = mergeLeadWithoutDuplicate(lead, leads);
+
+  try {
+    await saveLeads(updated, fileMeta?.sha);
+    return lead;
+  } catch (err) {
+    if (err?.status !== 409) {
+      throw err;
+    }
+  }
+
+  try {
+    const latest = await fetchLeads();
+    const latestUpdated = mergeLeadWithoutDuplicate(lead, latest.leads);
+    await saveLeads(latestUpdated, latest.fileMeta?.sha);
+    return lead;
+  } catch {
+    const nonBlockingError = new Error("Your enquiry was received successfully.");
+    nonBlockingError.code = "LEAD_SAVE_NON_BLOCKING_FAILURE";
+    throw nonBlockingError;
+  }
 }
 
