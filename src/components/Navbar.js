@@ -245,49 +245,88 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <>
+            {/* Overlay */}
             <motion.div
-              className="fixed inset-0 bg-black/40 z-40"
+              className="fixed inset-0 z-40 bg-black/40"
               onClick={() => setOpen(false)}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             />
 
-            <motion.div
-              className="fixed right-0 top-0 z-50 h-full w-72 bg-white shadow-xl p-4"
+            {/* Side Menu */}
+            <motion.aside
+              className="fixed top-0 right-0 z-50 h-screen w-[82%] max-w-xs bg-white border-l border-slate-200 shadow-2xl flex flex-col"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.22 }}
             >
-              {items.map((it) => (
-                <NavItem key={it.to} to={it.to} onClick={() => setOpen(false)}>
-                  {it.label}
-                </NavItem>
-              ))}
+              {/* Top Header */}
+              <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4">
+                <div className="text-lg font-semibold text-slate-900">Menu</div>
 
-              {/* ✅ ADMIN MOBILE */}
-              {isAdmin ? (
-                <>
-                  <NavItem to="/admin/dashboard" onClick={() => setOpen(false)}>
-                    Dashboard
-                  </NavItem>
-                  <button
-                    onClick={() => {
-                      logout();
-                      setOpen(false);
-                    }}
-                    className="mt-2 w-full rounded-lg border px-3 py-2"
+                <button
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl border border-slate-200 p-2"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* Menu Items */}
+              <div className="flex flex-col gap-2 overflow-y-auto p-4">
+                {items.map((it) => (
+                  <NavLink
+                    key={it.to}
+                    to={it.to}
+                    onClick={() => setOpen(false)}
+                    className={({ isActive }) =>
+                      classNames(
+                        "rounded-xl px-4 py-3 text-base font-medium transition",
+                        isActive
+                          ? "bg-slate-900 text-white"
+                          : "bg-slate-50 text-slate-800 hover:bg-slate-100",
+                      )
+                    }
                   >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <NavItem to="/admin-login" onClick={() => setOpen(false)}>
-                  Admin Login
-                </NavItem>
-              )}
-            </motion.div>
+                    {it.label}
+                  </NavLink>
+                ))}
+
+                <div className="my-2 border-t border-slate-200" />
+
+                {isAdmin ? (
+                  <>
+                    <NavLink
+                      to="/admin/dashboard"
+                      onClick={() => setOpen(false)}
+                      className="rounded-xl px-4 py-3 text-base font-medium bg-slate-50 text-slate-800 hover:bg-slate-100"
+                    >
+                      Dashboard
+                    </NavLink>
+
+                    <button
+                      onClick={() => {
+                        logout();
+                        setOpen(false);
+                      }}
+                      className="rounded-xl border border-slate-200 px-4 py-3 text-left text-base font-medium"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <NavLink
+                    to="/admin-login"
+                    onClick={() => setOpen(false)}
+                    className="rounded-xl px-4 py-3 text-base font-medium bg-slate-50 text-slate-800 hover:bg-slate-100"
+                  >
+                    Admin Login
+                  </NavLink>
+                )}
+              </div>
+            </motion.aside>
           </>
         )}
       </AnimatePresence>

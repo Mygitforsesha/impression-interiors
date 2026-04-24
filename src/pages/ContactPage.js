@@ -103,7 +103,10 @@ export default function ContactPage() {
                 Phone
                 <input
                   required
+                  type="number"
                   value={form.phone}
+                  maxLength={10}
+                  minLength={10}
                   onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
                   className="mt-1 w-full min-h-[44px] rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-slate-400 focus:outline-none"
                 />

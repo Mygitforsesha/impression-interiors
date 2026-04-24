@@ -7,8 +7,12 @@ const LS_KEY = "ii_free_quote";
 function StepShell({ title, subtitle, children }) {
   return (
     <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
-      <div className="text-sm font-semibold text-slate-900 md:text-base">{title}</div>
-      {subtitle ? <div className="mt-1 text-sm text-slate-600">{subtitle}</div> : null}
+      <div className="text-sm font-semibold text-slate-900 md:text-base">
+        {title}
+      </div>
+      {subtitle ? (
+        <div className="mt-1 text-sm text-slate-600">{subtitle}</div>
+      ) : null}
       <div className="mt-6">{children}</div>
     </div>
   );
@@ -20,7 +24,9 @@ function BigOption({ active, onClick, children }) {
       type="button"
       onClick={onClick}
       className={`min-h-[44px] w-full rounded-2xl border px-4 py-4 text-left text-sm font-semibold transition ${
-        active ? "border-slate-900 bg-slate-50" : "border-slate-200 bg-white hover:bg-slate-50"
+        active
+          ? "border-slate-900 bg-slate-50"
+          : "border-slate-200 bg-white hover:bg-slate-50"
       }`}
     >
       {children}
@@ -29,10 +35,15 @@ function BigOption({ active, onClick, children }) {
 }
 
 export default function FreeQuotePage() {
-  const steps = useMemo(() => ["Property", "Budget", "Requirements", "Contact"], []);
+  const steps = useMemo(
+    () => ["Property", "Budget", "Requirements", "Contact"],
+    [],
+  );
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
-  const [submittedMessage, setSubmittedMessage] = useState("We will contact you soon.");
+  const [submittedMessage, setSubmittedMessage] = useState(
+    "We will contact you soon.",
+  );
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
@@ -98,7 +109,10 @@ export default function FreeQuotePage() {
       if (endpoint) {
         const res = await fetch(endpoint, {
           method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
           body: JSON.stringify({
             name: lead.name,
             phone: lead.phone,
@@ -142,7 +156,9 @@ export default function FreeQuotePage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 md:px-6 md:py-12">
-      <h1 className="text-2xl font-semibold text-slate-900 md:text-4xl">Free Quote</h1>
+      <h1 className="text-2xl font-semibold text-slate-900 md:text-4xl">
+        Free Quote
+      </h1>
       <p className="mt-2 text-sm text-slate-600 md:text-base">
         A quick guided form. One question per step.
       </p>
@@ -155,7 +171,10 @@ export default function FreeQuotePage() {
           <div>{progressPct}%</div>
         </div>
         <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-100">
-          <div className="h-full bg-slate-900 transition-all" style={{ width: `${progressPct}%` }} />
+          <div
+            className="h-full bg-slate-900 transition-all"
+            style={{ width: `${progressPct}%` }}
+          />
         </div>
       </div>
 
@@ -170,8 +189,12 @@ export default function FreeQuotePage() {
               transition={{ duration: 0.2 }}
               className="rounded-3xl border border-emerald-200 bg-emerald-50 p-8"
             >
-              <div className="text-sm font-semibold text-emerald-900">Submitted</div>
-              <div className="mt-1 text-sm text-emerald-800">{submittedMessage}</div>
+              <div className="text-sm font-semibold text-emerald-900">
+                Submitted
+              </div>
+              <div className="mt-1 text-sm text-emerald-800">
+                {submittedMessage}
+              </div>
               <button
                 type="button"
                 className="mt-5 min-h-[44px] rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
@@ -189,30 +212,41 @@ export default function FreeQuotePage() {
               transition={{ duration: 0.2 }}
             >
               {step === 0 && (
-                <StepShell title="Step 1: Property details" subtitle="Select property type and BHK.">
+                <StepShell
+                  title="Step 1: Property details"
+                  subtitle="Select property type and BHK."
+                >
                   <div className="grid gap-3">
                     <BigOption
                       active={data.propertyType === "Apartment"}
-                      onClick={() => setData((d) => ({ ...d, propertyType: "Apartment" }))}
+                      onClick={() =>
+                        setData((d) => ({ ...d, propertyType: "Apartment" }))
+                      }
                     >
                       Apartment
                     </BigOption>
                     <BigOption
                       active={data.propertyType === "Villa"}
-                      onClick={() => setData((d) => ({ ...d, propertyType: "Villa" }))}
+                      onClick={() =>
+                        setData((d) => ({ ...d, propertyType: "Villa" }))
+                      }
                     >
                       Villa
                     </BigOption>
                     <BigOption
                       active={data.propertyType === "Office"}
-                      onClick={() => setData((d) => ({ ...d, propertyType: "Office" }))}
+                      onClick={() =>
+                        setData((d) => ({ ...d, propertyType: "Office" }))
+                      }
                     >
                       Office
                     </BigOption>
                   </div>
 
                   <div className="mt-5">
-                    <div className="text-sm font-medium text-slate-700">BHK</div>
+                    <div className="text-sm font-medium text-slate-700">
+                      BHK
+                    </div>
                     <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
                       {["1BHK", "2BHK", "3BHK", "4BHK+"].map((b) => (
                         <button
@@ -220,7 +254,9 @@ export default function FreeQuotePage() {
                           type="button"
                           onClick={() => setData((d) => ({ ...d, bhk: b }))}
                           className={`min-h-[44px] rounded-2xl border px-3 py-2 text-sm font-semibold transition ${
-                            data.bhk === b ? "border-slate-900 bg-slate-50" : "border-slate-200 hover:bg-slate-50"
+                            data.bhk === b
+                              ? "border-slate-900 bg-slate-50"
+                              : "border-slate-200 hover:bg-slate-50"
                           }`}
                         >
                           {b}
@@ -232,7 +268,10 @@ export default function FreeQuotePage() {
               )}
 
               {step === 1 && (
-                <StepShell title="Step 2: Budget" subtitle="Pick a budget range.">
+                <StepShell
+                  title="Step 2: Budget"
+                  subtitle="Pick a budget range."
+                >
                   <div className="grid gap-3">
                     {["<5L", "5–10L", "10–20L", "20L+"].map((b) => (
                       <BigOption
@@ -248,7 +287,10 @@ export default function FreeQuotePage() {
               )}
 
               {step === 2 && (
-                <StepShell title="Step 3: Requirements" subtitle="Select areas you want to design.">
+                <StepShell
+                  title="Step 3: Requirements"
+                  subtitle="Select areas you want to design."
+                >
                   <div className="grid gap-3">
                     {[
                       { id: "Full home", label: "Full home" },
@@ -279,13 +321,18 @@ export default function FreeQuotePage() {
               )}
 
               {step === 3 && (
-                <StepShell title="Step 4: Contact details" subtitle="So we can reach you quickly.">
+                <StepShell
+                  title="Step 4: Contact details"
+                  subtitle="So we can reach you quickly."
+                >
                   <div className="space-y-4">
                     <label className="block text-sm font-medium text-slate-700">
                       Name
                       <input
                         value={data.name}
-                        onChange={(e) => setData((d) => ({ ...d, name: e.target.value }))}
+                        onChange={(e) =>
+                          setData((d) => ({ ...d, name: e.target.value }))
+                        }
                         className="mt-1 w-full min-h-[44px] rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-slate-400 focus:outline-none"
                         required
                       />
@@ -294,16 +341,23 @@ export default function FreeQuotePage() {
                       Phone
                       <input
                         value={data.phone}
-                        onChange={(e) => setData((d) => ({ ...d, phone: e.target.value }))}
+                        onChange={(e) =>
+                          setData((d) => ({ ...d, phone: e.target.value }))
+                        }
+                        minLength={10}
+                        maxLength={10}
                         className="mt-1 w-full min-h-[44px] rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-slate-400 focus:outline-none"
                         required
+                        type="number"
                       />
                     </label>
                     <label className="block text-sm font-medium text-slate-700">
                       City
                       <input
                         value={data.city}
-                        onChange={(e) => setData((d) => ({ ...d, city: e.target.value }))}
+                        onChange={(e) =>
+                          setData((d) => ({ ...d, city: e.target.value }))
+                        }
                         className="mt-1 w-full min-h-[44px] rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-slate-400 focus:outline-none"
                         required
                       />
@@ -354,4 +408,3 @@ export default function FreeQuotePage() {
     </div>
   );
 }
-
